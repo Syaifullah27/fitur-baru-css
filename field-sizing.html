@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Sizing Example</title>
+    <link rel="stylesheet" href="css/field-sizing.css">
+</head>
+<body>
+    <h1>CSS field-sizing</h1>
+
+<main>
+  <section class="without">
+    <h2>Without</h2>
+    <textarea placeholder="No grow…"></textarea>
+
+    <select>
+      <option>This doesn't shrink to fit</option>
+      <option>hi</option>
+      <option>short</option>
+      <option>medium</option>
+      <option>annoying long option that needs rewritten</option>
+    </select>
+
+    <select multiple>
+      <option>This doesn't shrink to fit</option>
+      <option>hi</option>
+      <option>short</option>
+      <option>medium</option>
+      <option>annoying long option that needs rewritten</option>
+    </select>
+
+    <input type="text" placeholder="I don't grow">
+    
+    <input type="email" placeholder="Email no grow">
+
+    <input type="number" placeholder="99"> 
+
+    <input type="file">
+  </section>
+
+  <section class="with">
+    <h2>With</h2>
+
+    <textarea placeholder="Does grow…"></textarea>
+
+    <select>
+      <option>This shrinks to fit</option>
+      <option>hi</option>
+      <option>short</option>
+      <option>medium</option>
+      <option>annoying long option that needs rewritten</option>
+    </select>
+
+    <select multiple>
+      <option>This shrinks to fit</option>
+      <option>hi</option>
+      <option>short</option>
+      <option>medium</option>
+      <option>annoying long option that needs rewritten</option>
+    </select>
+
+    <input type="text" placeholder="I grow too">
+    
+    <input type="email" placeholder="Email input type too">
+
+    <input type="number" placeholder="99"> 
+
+    <input type="file">
+  </section>
+</main>
+</body>
+</html>

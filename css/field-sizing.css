@@ -1,0 +1,90 @@
+@layer demo {
+    .with {
+      textarea, select, input {
+        field-sizing: content;
+      }
+    }
+    
+    /* 
+      min/max sizes for the newly 
+      content size contextual inputs
+      that may be empty (min-inline)
+      or overly filled (max-{inline,block})
+    */
+    textarea {
+      min-block-size: 3.5rlh;
+      min-inline-size: 20ch;
+      max-inline-size: 50ch;
+    }
+    
+    select {
+      min-block-size: 1.5lh;
+    }
+    
+    input {
+      min-inline-size: 7ch;
+    }
+  }
+  
+  @layer demo.support {
+    * {
+      box-sizing: border-box;
+      margin: 0;
+    }
+  
+    html {
+      block-size: 100%;
+      color-scheme: dark light;
+    }
+  
+    body {
+      min-block-size: 100%;
+      font-family: system-ui, sans-serif;
+  
+      display: grid;
+      place-content: center;
+      gap: 10vmin;
+        padding: 10vmin;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    main {
+      display: grid;
+      place-content: center;
+      place-items: start;
+      gap: 10vmin;
+      
+      @media (width > 800px) {
+        grid-auto-flow: column;
+      }
+    }
+    
+    section {
+      display: grid;
+      justify-items: start;
+      gap: 2vh;
+    }
+    
+    @layer forms {
+      textarea, select, input {
+        font: inherit;
+      }
+  
+      input, textarea {
+        line-height: 1.5;
+        padding-inline: .75rem;
+        padding-block: .5rem;
+      }
+  
+      select {
+        padding: .5rem;
+      }
+      
+      input[type="file"] {
+        padding: 0;
+      }
+    }
+  }
