@@ -1,0 +1,218 @@
+@supports selector(::details-content) {
+  .warning {
+    display: none;
+  }
+}
+
+/* Animate all properties on details. This because we change the margin, border, etc when open. */
+details {
+  transition: all 0.5s ease;
+  background: white;
+}
+
+/* Add gap around open details */
+details[open]:not(:first-child) {
+  margin-top: 0.5rem;
+}
+details[open]:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+/* Add border to all details, but prevent a 2px-looking one when two successive details are collapsed */
+details {
+  border: 1px solid #ccc;
+}
+details:not([open]):has(+ details:not(details[open])) {
+  border-bottom-color: #fff;
+}
+
+/* Animate all on summmary */
+summary {
+  transition: all 0.5s ease;
+  padding: 0.5em 1em;
+}
+[open] summary {
+  padding: 1em 1em;
+}
+
+summary {
+  color: #333;
+  cursor: pointer;
+  
+  /* Roll our own marker */
+  display: flex;
+  justify-content: space-between;
+
+  &::marker {
+    content: "";
+  }
+  &::after {
+    content: "";
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgYmFzZVByb2ZpbGU9InRpbnkiIGhlaWdodD0iMjRweCIgaWQ9IkxheWVyXzEiIHZlcnNpb249IjEuMiIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PHBhdGggZD0iTTguNTg2LDUuNTg2Yy0wLjc4MSwwLjc4MS0wLjc4MSwyLjA0NywwLDIuODI4TDEyLjE3MSwxMmwtMy41ODUsMy41ODZjLTAuNzgxLDAuNzgxLTAuNzgxLDIuMDQ3LDAsMi44MjggIEM4Ljk3NiwxOC44MDUsOS40ODgsMTksMTAsMTlzMS4wMjQtMC4xOTUsMS40MTQtMC41ODZMMTcuODI5LDEybC02LjQxNS02LjQxNEMxMC42MzQsNC44MDUsOS4zNjYsNC44MDUsOC41ODYsNS41ODZ6Ii8+PC9zdmc+);
+    background-size: cover;
+    width: 1.25rem;
+    aspect-ratio: 1;
+    display: block;
+    transform: rotate(90deg);
+    transition: transform 0.5s ease;
+    transform-origin: 50% 50%;
+  }
+  [open] &::after {
+    transform: rotate(270deg);
+  }
+
+  /* Hover state */
+  &:hover {
+    color: #666;
+  }
+}
+
+.details-content-wrapper {
+  padding: 0.5em 1em;
+
+  /* We need margin-trim … */
+  :first-child { margin-top: 0; }
+  :last-child { margin-bottom: 0; }
+}
+
+::details-content {
+  transition: all 0.5s ease, content-visibility 0.5s allow-discrete;
+  height: 0;
+  overflow: clip;
+}
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  [open]::details-content {
+    height: auto;
+    padding-bottom: 0.5em;
+  }
+}
+@supports not (interpolate-size: allow-keywords) {
+  [open]::details-content {
+    height: 150px; /* In the future to be replaced by `height: auto` */
+    overflow-y: scroll; /* In case the contents should be taller than 150px */
+  }
+}
+
+@layer reset {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+  
+  html {
+    font-size: 14px;
+  }
+}
+
+@layer baselayout {
+  html {
+    background: white;
+    color: #444;
+    font-family: system-ui;
+    line-height: 1.42;
+    
+    overscroll-behavior-x: none;
+    overflow: auto;
+  }
+
+  main {
+    max-width: 90ch;
+    margin: 0 auto;
+    padding-bottom: 10rem;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+  
+  h1, h2 {
+    margin: 4em 0 1em;
+  }
+  h3 {
+    margin: 1em 0 0.5em;
+  }
+  
+  #demo {
+    padding: 1em;
+    border: 1px solid #ccc;
+    background: #f4f6f9;
+  }
+}
+
+@layer code {
+  pre {
+    border: 1px solid #dedede;
+    padding: 1em;
+    background: #f7f7f7;
+    font-family: "Courier 10 Pitch", Courier, monospace;
+    overflow-x: auto;
+    border-left: 0.4em solid cornflowerblue;
+    tab-size: 4;
+  }
+
+  code:not(pre code) {
+    background: #f7f7f7;
+    border: 1px solid rgb(0 0 0 / 0.2);
+    padding: 0.1rem 0.3rem;
+    margin: 0.1rem 0;
+    border-radius: 0.2rem;
+    /*      display: inline-block; */
+    -webkit-box-decoration-break: clone;
+    white-space: pre-wrap;
+  }
+}
+
+@layer warning {
+  .warning {
+    box-sizing: border-box;
+    padding: 1em;
+    margin: 1em 0;
+    border: 1px solid #ccc;
+    background: rgba(255 255 205 / 0.8);
+  }
+
+  .warning > :first-child {
+    margin-top: 0;
+  }
+
+  .warning > :last-child {
+    margin-bottom: 0;
+  }
+
+  .warning a {
+    color: blue;
+  }
+  .warning--info {
+    border: 1px solid #123456;
+    background: rgb(205 230 255 / 0.8);
+  }
+  .warning--alarm {
+    border: 1px solid red;
+    background: #ff000010;
+  }
+}
+
+/* Hide a bunch of stuff when embedded */
+:root[data-embed="yep"] {
+  main {
+    padding: 2em 1em;
+    
+    :not(p.warning, p.warning *, #demo, #demo *, #demo ~ p, #demo ~ p *) {
+      display: none;
+    }
+  }
+  #demo ~ p {
+    margin-top: 1em;
+    text-align: center;
+  }
+}
